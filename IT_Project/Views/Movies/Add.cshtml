@@ -1,0 +1,75 @@
+﻿@model IT_Project.Models.Movie
+@{
+    ViewBag.Title = " Додади нов филм";
+}
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i>@ViewBag.Title</p>
+
+@using (Html.BeginForm("Add", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-input-section">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-field">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Director)
+            @Html.TextBoxFor(m => m.Director)
+            @Html.ValidationMessageFor(m => m.Director, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Year)
+            @Html.TextBoxFor(m => m.Year, new { @type = "number", step = "1" })
+            @Html.ValidationMessageFor(m => m.Year, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Duration)
+            @Html.TextBoxFor(m => m.Duration, new { @type = "number", step = "1" })
+            @Html.ValidationMessageFor(m => m.Duration, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Cast)
+            @Html.TextAreaFor(m => m.Cast, new
+            {
+                autocomplete = "off",
+                rows = "6",
+                cols = "50",
+                placeholder = "Внесете ги улогите една по една одвоени со запирка (,). Пр.: Mike Myers - Shrek, Eddie Murphy - Donkey, ..."
+           })
+            @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { autocomplete = "off", rows = "6", cols = "50" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Genre)
+            @Html.TextBoxFor(m => m.Genre)
+            @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            <label for="File">
+                Плакат
+                @Html.TextBoxFor(m => m.File, new { @type = "file" })
+                @Html.ValidationMessageFor(m => m.File, "", new { @class = "validation-message" })
+            </label>
+        </div>
+    </div>
+    <button type="submit" class="add-submit-btn">Додади</button>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input[type="number"]').val("");
+            $('input[type="file"]').change(function () {
+                $('#File-error').html('');
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

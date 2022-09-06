@@ -1,0 +1,65 @@
+﻿@model IT_Project.Models.MovieTicketPurchase
+@{
+    ViewBag.Title = " Купи билети";
+}
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i>@ViewBag.Title</p>
+
+@using (Html.BeginForm("AddMoviePurchase", "Tickets", FormMethod.Post, new { id = "tickets-form" }))
+{
+    <div class="form-input-section">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-field">
+            @Html.LabelFor(m => m.CreditCardFullName)
+            @Html.TextBoxFor(m => m.CreditCardFullName)
+            @Html.ValidationMessageFor(m => m.CreditCardFullName, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.CreditCardNumber)
+            @Html.TextBoxFor(m => m.CreditCardNumber, new { placeholder = "xxxx xxxx xxxx xxxx" })
+            @Html.ValidationMessageFor(m => m.CreditCardNumber, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.CreditCardExpirationDate)
+            @Html.TextBoxFor(m => m.CreditCardExpirationDate, new { placeholder = "mm/yy" })
+            @Html.ValidationMessageFor(m => m.CreditCardExpirationDate, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.CVV)
+            @Html.TextBoxFor(m => m.CVV)
+            @Html.ValidationMessageFor(m => m.CVV, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.TicketsCount)
+            @Html.TextBoxFor(m => m.TicketsCount, new { @type = "number", step = "1" })
+            @Html.ValidationMessageFor(m => m.TicketsCount, "", new { @class = "validation-message" })
+        </div>
+        @Html.HiddenFor(m => m.MovieInfoId)
+    </div>
+    <button type="submit" class="add-submit-btn">Додади</button>
+    <div class="checkout-totals">
+        <div>@Model.Info.Title</div>
+        <div>@Model.Info.DateAndTime.ToString("g")</div>
+        <div>@Model.Info.Price денари</div>
+        <div>x <span class="checkout-count">@Model.TicketsCount</span></div>
+        <hr />
+        <div><b>Вкупно: </b><span class="checkout-price">@(Model.TicketsCount * Model.Info.Price)</span> денари</div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input[type="number"]').change(function () {
+                var value = $(this).val();
+                total = @Model.Info.Price * value;
+                console.log(value, total);
+                $('.checkout-count').html(value);
+                $('.checkout-price').html(total);
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

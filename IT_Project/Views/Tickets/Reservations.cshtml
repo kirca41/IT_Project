@@ -1,0 +1,142 @@
+﻿@model IT_Project.ViewModels.ReservationsViewModel
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Резервации за претстави:</p>
+@if (Model.Plays.Keys.Count == 0)
+{
+    <p class="none-found">Нема тековни резервации</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Претстава</th>
+            <th>Датум на резервирање</th>
+            <th>Број на резервани билети</th>
+            <th>Име и презиме</th>
+            <th>Телефонски број</th>
+            <th>Платено</th>
+            <th></th>
+        </tr>
+        @foreach (var key in Model.Plays.Keys.OrderBy(k => k.DateAndTime))
+        {
+            int count = Model.Plays[key].Count();
+            var first = Model.Plays[key].First();
+            int sum = first.ReservationCount;
+            <tr>
+                <td rowspan="@(count + 1)">
+                    <div>@key.Title</div>
+                    <div>@key.DateAndTime.ToString("g")</div>
+                    <div>@key.Price денари</div>
+                </td>
+                <td>@first.ReservationDate</td>
+                <td>@first.ReservationCount</td>
+                <td>@first.FirstName @first.LastName</td>
+                <td>@first.Phone</td>
+                @if(first.Paid)
+                {
+                    <td>Да</td>
+                }
+                else
+                {
+                    <td>Не - <a href="/Tickets/UpdatePaymentTheatrePlayReservation/@first.Id" class="payment-status">Ажурирај</a></td>
+                }
+                <td><a href="/Tickets/CancelTheatrePlayReservation/@first.Id" class="cancel-reservation">Откажи</a></td>
+            </tr>
+            foreach (var purchase in Model.Plays[key].Skip(1))
+            {
+                sum += purchase.ReservationCount;
+    <tr>
+        <td>@purchase.ReservationDate</td>
+        <td>@purchase.ReservationCount</td>
+        <td>@purchase.FirstName @first.LastName</td>
+        <td>@purchase.Phone</td>
+        @if (first.Paid)
+        {
+            <td>Да</td>
+        }
+        else
+        {
+            <td>Не - <a href="/Tickets/UpdatePaymentTheatrePlayReservation/@purchase.Id" class="payment-status">Ажурирај</a></td>
+        }
+        <td><a href="/Tickets/CancelTheatrePlayReservation/@purchase.Id" class="cancel-reservation">Откажи</a></td>
+    </tr>
+            }
+            <tr>
+                <td><b>Вкупно резервации:</b></td>
+                <td>@sum</td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Резервации за филмови:</p>
+@if (Model.Movies.Keys.Count == 0)
+{
+    <p class="none-found">Нема тековни резервации</p>
+}
+else
+{
+<table>
+    <tr>
+        <th>Филм</th>
+        <th>Датум на резервирање</th>
+        <th>Број на резервани билети</th>
+        <th>Име и презиме</th>
+        <th>Телефонски број</th>
+        <th>Платено</th>
+        <th></th>
+    </tr>
+    @foreach (var key in Model.Movies.Keys.OrderBy(k => k.DateAndTime))
+    {
+        int count = Model.Movies[key].Count();
+        var first = Model.Movies[key].First();
+        int sum = first.ReservationCount;
+<tr>
+    <td rowspan="@(count + 1)">
+        <div>@key.Title</div>
+        <div>@key.DateAndTime.ToString("g")</div>
+        <div>@key.Price денари</div>
+    </td>
+    <td>@first.ReservationDate</td>
+    <td>@first.ReservationCount</td>
+    <td>@first.FirstName @first.LastName</td>
+    <td>@first.Phone</td>
+    @if (first.Paid)
+    {
+        <td>Да</td>
+    }
+    else
+    {
+        <td>Не - <a href="/Tickets/UpdatePaymentMovieReservation/@first.Id" class="payment-status">Ажурирај</a></td>
+    }
+    <td><a href="/Tickets/CancelMovieReservation/@first.Id" class="cancel-reservation">Откажи</a></td>
+</tr>
+        foreach (var purchase in Model.Movies[key].Skip(1))
+        {
+            sum += purchase.ReservationCount;
+<tr>
+    <td>@purchase.ReservationDate</td>
+    <td>@purchase.ReservationCount</td>
+    <td>@purchase.FirstName @first.LastName</td>
+    <td>@purchase.Phone</td>
+    @if (first.Paid)
+    {
+        <td>Да</td>
+    }
+    else
+    {
+        <td>Не - <a href="/Tickets/UpdatePaymentMovieReservation/@purchase.Id" class="payment-status">Ажурирај</a></td>
+    }
+    <td><a href="/Tickets/CancelMovieReservation/@purchase.Id" class="cancel-reservation">Откажи</a></td>
+</tr>
+        }
+        <tr>
+            <td><b>Вкупно резервации:</b></td>
+            <td>@sum</td>
+            <td></td>
+            <td></td>
+        </tr>
+    }
+</table>
+}

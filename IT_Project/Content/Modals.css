@@ -1,0 +1,48 @@
+﻿.register-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 0.5em 0.8em;
+    border-radius: 0.2em;
+    border: none;
+    font-size: 1.3em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    background-image: linear-gradient(to right, #AABFBB, #509CBA, #1F4A6F);
+    color: #F4F4F4;
+    transition: all ease-in 0.2s;
+}
+
+.register-btn:hover {
+    cursor: pointer;
+    scale: 1.1;
+    box-shadow: 0 0.2em 0.5em 0.2em rgba(195,192,192,.9);
+}
+
+.confirm-btn {
+    background-color: transparent;
+    color: #4A4A4A;
+    padding: 1% 2%;
+    border: 2px solid #D71601;
+    border-radius: 0.3em;
+}
+
+.confirm-btn:hover {
+    background-color: #D71601;
+    color: white;
+    cursor: pointer;
+}
+
+.abort-btn {
+    background-color: transparent;
+    color: #4A4A4A;
+    padding: 1% 2%;
+    border: 2px solid #AABFBB;
+    border-radius: 0.3em;
+    margin-left: 3%;
+}
+
+.abort-btn:hover {
+    background-color: #AABFBB;
+    color: #4A4A4A;
+    cursor: pointer;
+}

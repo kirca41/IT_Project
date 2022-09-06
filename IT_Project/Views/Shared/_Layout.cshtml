@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar-parent">
+        <a href="/Home/Index">
+            <img src="~/Images/logo.png" />
+        </a>
+        <div class="navbar">
+            @Html.ActionLink("Претстави", "Index", "TheatrePlays")
+            @Html.ActionLink("Филмови", "Index", "Movies")
+            @Html.ActionLink("Контакт", "Contact", "Home")
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+            {
+                <div class="dropdown">
+                    <div class="dropbtn">
+                        Настани
+                        <span id="icon-down">
+                            <i class="fa fa-angle-down"></i>
+                        </span>
+                        <span id="icon-up">
+                            <i class="fa fa-angle-up"></i>
+                        </span>
+                    </div>
+                    <div class="dropdown-content">
+                        @Html.ActionLink("Преглед", "Index", "EventsManager")
+                        @Html.ActionLink("Нова претстава", "Add", "TheatrePlays")
+                        @Html.ActionLink("Нов филм", "Add", "Movies")
+                        @Html.ActionLink("Изведба на претстава", "Plays", "EventsManager")
+                        @Html.ActionLink("Проекција на филм", "Movies", "EventsManager")
+                    </div>
+                </div>
+                @Html.ActionLink("Билети", "Tickets", "Tickets")
+                @Html.ActionLink("Резервации", "Reservations", "Tickets")
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ActionLink(User.Identity.GetUserName().Split((new[] { '@' }))[0], "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Одјави се</a>
+                }
+            }
+            else
+            {
+                <a href="/Account/Register" id="registerLink">Регистрирај се</a>
+                <a href="/Account/Login" id="loginLink">Најави се</a>
+                @*<span id="insert-modal"></span>*@
+            }
+            @*@Html.Partial("_LoginPartial")*@
+        </div>
+    </div>
+    <div>
+        <div class="body-content">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer class="footer">
+            <div>
+                Работно време на билетарница:
+                <br />
+                Понеделник - Петок: 09:00 - 14:00 и еден час пред почеток на настаните.
+                <br />
+                Сабота: 09:00 - 13:00 и еден час пред почеток на настаните.
+            </div>
+            <div>
+                Контакт информации:
+                <br />
+                Адреса: ул. Руѓер Бошковиќ 16
+                <br />
+                Администрација: 02 1234 567
+                <br />
+                Билетарница: 02 7654 321
+            </div>
+            <div>
+                Според препораките на Владата на РСМ, Министерството за Култура и Центарот за Јавно Здравје, вe известуваме дека се исполнети сите услови и протоколи за безбедно следење на нашите претстави.
+            </div>
+            <div>
+                Социјални мрежи:
+                <div class="social-media">
+                    <a href="#"><i class="fa fa-facebook-official"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-youtube"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryval")
+</body>
+</html>

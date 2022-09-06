@@ -1,0 +1,523 @@
+﻿
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+
+a:link, a:visited {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.navbar-parent {
+    padding-top: 2%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 8;
+    display: flex;
+}
+
+.navbar {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    overflow: hidden;
+    font-size: 1.4em;
+}
+
+.navbar a {
+    text-decoration: none;
+    text-align: center;
+}
+
+.navbar-parent > a {
+    margin-left: 5%;
+}
+
+.navbar-parent a img {
+    width: 120px;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown:hover {
+    cursor: pointer;
+}
+
+.dropbtn > span {
+    padding: 0.3em;
+}
+
+.dropdown .dropbtn {
+    border: none;
+    font-size: 1em;
+    outline: none;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar > * {
+    padding: 0.5em;
+}
+
+.navbar form a:hover {
+    padding-bottom: 0.32em;
+}
+
+.navbar > a, .navbar form a {
+    transition: all ease-in-out .3s;
+}
+
+.navbar > a:hover, .navbar form a:hover {
+    border-bottom: 0.2em solid red;
+}
+
+.dropdown-content > a {
+    transition: all ease-in-out .3s;
+    border-right: 0.2em solid transparent;
+}
+
+.dropdown-content > a:hover {
+    border-right: 0.2em solid red;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    display: block;
+    text-align: left;
+    padding: 0em 0.5em 0.2em 0.1em;
+}
+
+.dropdown:hover {
+    margin-top: -0.29em;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    transition: display ease-in-out .3s;
+}
+
+#icon-up {
+    display: none;
+}
+
+.dropdown:hover #icon-up {
+    display: inline-block;
+}
+
+.dropdown:hover #icon-down {
+    display: none;
+}
+
+.body-content {
+    padding: 7em 0;
+    background-color: #ffedb3;
+}
+
+.footer {
+    margin: 3.3em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+.footer > div {
+    width: 15%;
+}
+
+.social-media {
+    margin-top: 2.5em;
+}
+
+.social-media a i {
+    font-size: 1.5em;
+    margin: 0.4em 0.6em;
+}
+
+.contact-container > div {
+    width: 40%;
+    margin: 2% 0;
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.contact-container > div > div:first-child {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    font-style: italic;
+    width: max-content;
+    border-bottom: 0.2em solid red;
+}
+
+.body-content-header {
+    text-transform: uppercase;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-left: 2%;    
+    padding: 1%;
+}
+
+.fa-angle-right {
+    font-weight: bold;
+}
+
+.contact-container .fa {
+    padding-right: 0.4em;
+}
+
+.contact-container a .fa {
+    padding: 0;
+    font-size: 2em;
+    margin-right: 0.7em;
+}
+
+.fa-facebook-official {
+    color: midnightblue;
+}
+
+.fa-instagram {
+    color: hotpink;
+}
+
+.fa-youtube {
+    color: darkred;
+}
+
+.event-list {
+    padding: 1% 5%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    column-gap: 5%;
+    position: relative;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: all ease-in 0.3s;
+    background-color: white;
+    height: fit-content;
+    width: 30%;
+    z-index: 1;
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.4);
+}
+
+.card-container {
+    width: 90%;
+    height: 90%;
+    padding: 9% 0;
+    margin: 0 auto;
+}
+
+.card-container img {
+    display: block;
+    margin: 0 auto;
+    width: 75%;
+    height: auto;
+    cursor: pointer;
+}
+
+.card-content {
+    width: 100%;
+    text-align: center;
+}
+
+.card-field {
+    margin: 0.5em 0 0 0;
+}
+
+.card-title a {
+    color: #1F4A6F;
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
+.card-title a:visited {
+    color: #1F4A6F;
+}
+
+.card-title a:hover {
+    color: #509CBA;
+}
+
+.card-author, .card-genre {
+    font-size: 1.1em;
+    color: lightslategray;
+    font-style: italic;
+}
+
+.card-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 2% 0;
+}
+
+.card-buttons > a {
+    width: fit-content;
+}
+
+.remove-btn {
+    background-color: transparent;
+    color: #4A4A4A;
+    padding: 1% 2%;
+    width: 5.5em;
+    border: 2px solid #D71601;
+    border-radius: 0.3em;
+    margin-right: 3%;
+}
+
+.remove-btn:hover {
+    background-color: #D71601;
+    color: white;
+    cursor: pointer;
+}
+
+.remove-btn:hover .fa, .edit-btn:hover .fa {
+    color:white;
+}
+
+.edit-btn {
+    background-color: transparent;
+    color: #4A4A4A;
+    padding: 1%;
+    width: 5em;
+    border: 2px solid #629D2A;
+    border-radius: 0.3em;
+    margin-right: 3%;
+}
+
+.edit-btn:hover {
+    background-color: #629D2A;
+    color: white;
+    cursor: pointer;
+}
+
+.back-btn {
+    background-color: transparent;
+    padding: 1%;
+    width: 5em;
+    border: 2px solid lightgray;
+    border-radius: 0.3em;
+}
+
+.fa-arrow-left {
+    color: gray;
+}
+
+.back-btn:hover {
+    cursor: pointer;
+    background-color: lightgray;
+    color: white;
+}
+
+.details {
+    margin-left: 15%;
+    font-size: 1.4em;
+}
+
+.details-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 5%;
+}
+
+.details-bottom {
+    margin-top: 1.3em;
+}
+
+.details-top img {
+    width: 30%;
+}
+
+.details-info {
+    width: 75%;
+}
+
+.field-name {
+    font-weight: bold;
+}
+
+.details-title {
+    font-size: 1.6em;
+    color: darkred;
+}
+
+.details-genre {
+    font-style: italic;
+}
+
+.details-buttons {
+    margin-top: 3em;
+    font-size: 0.8em;
+}
+
+#insert-infos .infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 1%;
+}
+
+.ticket {
+    position: relative;
+    border: none;
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+    font-weight: 300;
+}
+
+.ticket::before {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    border: 1px solid #e5262d;
+    content: '';
+    z-index: 0;
+}
+
+.ticket i.fa {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    color: darkred;
+}
+
+.ticket::after {
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    top: -3px;
+    bottom: -3px;
+    border: 1px solid #e5262d;
+    content: '';
+    z-index: 0;
+}
+
+.tickets-btn {
+    margin: 0.8em 0;
+    padding: 0.4em 0.8em; 
+    font-size: 0.8em;
+    color: white;
+    background-color: darkred;
+    border: none;
+    transition: all ease-in 0.2s;
+}
+
+.tickets-btn:visited, .tickets-btn:link {
+    color: white;
+}
+
+.tickets-btn:hover {
+    cursor: pointer;
+    scale: 1.1;
+    color: darkred;
+    background-color: white;
+    border: 1px solid darkred;
+}
+
+.ticket-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticket-btns a {
+    color: darkred;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.ticket-btns a:hover {
+    cursor: pointer;
+    color: #e5262d;
+}
+
+.scrolling-wrapper {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    margin: 0 10%;  
+}
+
+.homepage-card {
+    display: inline-block;
+    margin: 0 2%;
+}
+
+.homepage-card img {
+    width: 400px;
+    height: 600px;
+}
+
+.up-next {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4em;
+}
+
+.up-next > div:first-child {
+    width: 20%;
+    text-align: center;
+    padding-top: 3em;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.up-next .details-top {
+    width: 50%;
+}
+
+#logoutForm a {
+    margin-left: 1.4em;
+}

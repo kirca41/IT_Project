@@ -1,0 +1,111 @@
+﻿table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0.2em 0.2em 1em 0.2em rgb(195 192 192 / 90%);
+    background-color: white;
+}
+
+.add-link {
+    display: block;
+    margin: 0 0 1.2em 4em;
+    font-size: 1.1em;
+    text-decoration: none;
+    border: 2px solid #1F4A6F;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 0.5em;
+    color: white;
+    background-color: #509CBA;
+    transition: all ease-in 0.1s;
+}
+
+.add-link:link {
+    color: white;
+}
+
+.add-link:visited {
+    color: white;
+}
+
+.add-link:hover {
+    background-color: #1F4A6F;
+    cursor: pointer;
+    scale: 1.1;
+    box-shadow: 0 0.2em 0.5em 0.2em rgba(195,192,192,.9);
+}
+
+.add-link i {
+    font-size: 0.8em;
+    color: white;
+}
+
+th {
+    background-color: #1F4A6F;
+    color: white;
+    font-size: 1.3em;
+}
+
+th, td {
+    width: 20%;
+    padding: 0.7em;
+}
+
+tr {
+    border-bottom: 2px solid rgba(195,192,192,.9);
+}
+
+td[rowspan] {
+    border-right: 2px solid rgba(195,192,192,.9);
+    border-left: 2px solid rgba(195,192,192,.9);
+    font-weight: bold;
+}
+
+tr:first-child, tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    font-size: 1.1em;
+}
+
+.fa-trash {
+    color: darkred;
+}
+
+.fa-pencil {
+    color: green;
+}
+
+.table-btns a {
+    font-size: 1.2em;
+    padding: 0 0.7em;
+}
+
+.table-btns a i {
+    transition: all ease-in 0.1s;
+}
+
+.table-btns a i:hover {
+    scale: 1.2;
+}
+
+.none-found {
+    margin-left: 7%;
+    font-size: 1.2em;
+}
+
+.cancel-reservation, .payment-status {
+    color: #509CBA;
+    font-weight: bold;
+}
+
+.cancel-reservation:link, .payment-status:link {
+    color: #509CBA;
+}
+
+.cancel-reservation:hover, .payment-status:hover {
+    cursor:pointer;
+    color: #1F4A6F;
+}

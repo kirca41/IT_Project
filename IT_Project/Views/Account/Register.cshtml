@@ -1,0 +1,33 @@
+﻿@model IT_Project.Models.RegisterViewModel
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> РЕГИСТРАЦИЈА</p>
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+{
+    <div class="account-form-section">
+        @Html.AntiForgeryToken()
+        <div class="form-field">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { placehodler = "Вашата е-адреса" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password, new { placehodler = "Внесе лозинка" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword, new { placehodler = "Внесе лозинка" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "validation-message" })
+        </div>
+        <button class="register-btn">
+                Регистрирај се
+        </button>
+
+    </div>
+}
+
+
+

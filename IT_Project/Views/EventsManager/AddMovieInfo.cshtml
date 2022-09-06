@@ -1,0 +1,25 @@
+﻿@model IT_Project.Models.MovieInfo
+
+@{
+    ViewContext.FormContext = new FormContext();
+}
+
+@using (Html.BeginForm("AddMovieInfo", "EventsManager"))
+{
+    <div class="form-input-section">
+        @Html.HiddenFor(m => m.MovieId)
+        @Html.HiddenFor(m => m.Title)
+        <div class="form-field">
+            @Html.LabelFor(m => m.DateAndTime)
+            @Html.TextBoxFor(m => m.DateAndTime, new { @type = "datetime-local" })
+            @Html.ValidationMessageFor(m => m.DateAndTime, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Price)
+            @Html.TextBoxFor(m => m.Price, new { @type = "number", step = "1" })
+            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "validation-message" })
+        </div>
+    </div>
+    <button type="submit" class="add-submit-btn">Додади</button>
+}
+

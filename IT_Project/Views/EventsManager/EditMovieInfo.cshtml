@@ -1,0 +1,29 @@
+﻿@model IT_Project.Models.MovieInfo
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Филм: @Model.Title</p>
+
+@using (Html.BeginForm("EditMovieInfo", "EventsManager"))
+{
+<div class="form-input-section">
+    @Html.HiddenFor(m => m.MovieId)
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Title)
+    <div class="form-field">
+        @Html.LabelFor(m => m.DateAndTime)
+        @Html.EditorFor(m => m.DateAndTime, new { htmlAttributes = new { type = "datetime-local" } })
+        @Html.ValidationMessageFor(m => m.DateAndTime, "", new { @class = "validation-message" })
+    </div>
+    <div class="form-field">
+        @Html.LabelFor(m => m.Price)
+        @Html.EditorFor(m => m.Price, new { @type = "number", step = "1" })
+        @Html.ValidationMessageFor(m => m.Price, "", new { @class = "validation-message" })
+    </div>
+    <div class="form-field">
+        @Html.LabelFor(m => m.TicketsGiven)
+        @Html.EditorFor(m => m.TicketsGiven, new { @type = "number", step = "1" })
+        @Html.ValidationMessageFor(m => m.TicketsGiven, "", new { @class = "validation-message" })
+    </div>
+</div>
+    <button type="submit" class="add-submit-btn">Промени</button>
+}
+

@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = " Додади проекција за филм";
+}
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i>@ViewBag.Title</p>
+
+@Html.DropDownList("Movies", new SelectList(ViewBag.titles), new { @class = "dropdown-list" })
+
+<div id="insertion-point">
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-list').on('change', function () {
+                var selected = $('.dropdown-list option:selected').text();
+                if (selected != "---") {
+                    $.ajax({
+                        url: "/EventsManager/AddMovieInfo",
+                        method: "GET",
+                        dataType: "text",
+                        data: ({ title: selected }),
+                        success: function (data) {
+                            $('#insertion-point').html(data);
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    }).then(function () {
+                        $('input[type="number"]').val("");
+                        $('input[type="datetime-local"]').val("");
+                        $.validator.unobtrusive.parse('#insertion-point form');
+                    });
+                }
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/datetimevalidation.js")
+}

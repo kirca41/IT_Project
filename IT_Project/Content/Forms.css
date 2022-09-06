@@ -1,0 +1,155 @@
+﻿.form-input-section {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    column-gap: 5%;
+    padding: 5%;
+    margin-left: 3em;
+}
+
+.form-input-section label, .account-form-section label {
+    display: block;
+}
+
+.form-field {
+    margin: 1.3em 0;
+}
+
+.form-field label {
+    text-transform: uppercase;
+    color: #1F4A6F;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 0.3em;
+}
+
+.form-input-section input, .form-input-section textarea, .account-form-section input {
+    border: none;
+    border-bottom: 3px solid #AABFBB;
+    background-color: transparent;
+    width: 90%;
+    transition: border-bottom-color 0.3s linear;
+}
+
+.form-input-section input[type="checkbox"] {
+    width: 1.4em;
+    height: 1.4em;
+}
+
+.form-input-section input:focus, .form-input-section textarea:focus, .account-form-section input:focus {
+    outline: none;
+    border-bottom: 3px solid #1F4A6F;
+}
+
+.form-input-section textarea {
+    resize: none;
+}
+
+.form-field input, .form-input-section textarea {
+    color: #509CBA;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+}
+
+.form-field select {
+    color: #509CBA;
+    border: 1px solid #509CBA;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+}
+
+.form-field select:focus-visible {
+    border: 2px solid #1F4A6F;
+    outline: none;
+}
+
+.add-submit-btn {
+    display: block;
+    margin: 0 auto;
+    width: 25%;
+    height: 2em;
+    border-radius: 0.2em;
+    border: none;
+    font-size: 1.5em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    background-image: linear-gradient(to right, #AABFBB, #509CBA, #1F4A6F);
+    color: #F4F4F4;
+    transition: all ease-in 0.2s;
+}
+
+.add-submit-btn:hover {
+    cursor: pointer;
+    scale: 1.1;
+    box-shadow: 0 0.2em 0.5em 0.2em rgba(195,192,192,.9);
+}
+
+.form-field > span, #File-error {  
+    color: red;
+    font-weight: bold;
+    text-transform: none;
+}
+
+label[for="File"] {
+    text-align: left;
+}
+
+input[type="file"] {
+    border: none;
+}
+
+.edit-image {
+    margin: 0 auto;
+}
+
+.dropdown-list {
+    color: #509CBA;
+    border: 1px solid #509CBA;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    margin-left: 3em;
+}
+
+.dropdown-list:focus-visible {
+    border: 2px solid #1F4A6F;
+    outline: none;
+}
+
+.checkout-totals {
+    display: inline-block;
+    position: absolute;
+    top: 36%;
+    right: 2%;
+    width: 18%;
+    padding: 2%;
+    box-shadow: 0 16px 20px 0 rgba(0,0,0,0.3);
+    border-radius: 10%;
+    font-size: 1.1em;
+    background-color: white;
+}
+
+#tickets-form {
+    width: 90%;
+}
+
+.checkout-totals div {
+    margin-bottom: 0.2em;
+}
+
+.account-form-section {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.account-form-section input[type="checkbox"] {
+    width: fit-content;
+}
+
+.not-registered {
+    font-size: 1em;
+    text-align: right;
+    margin-top: 1.5em;
+}
+
+.not-registered a:hover {
+    color: #509CBA;
+}

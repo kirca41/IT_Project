@@ -1,0 +1,88 @@
+﻿@model IT_Project.Models.TheatrePlay
+@{
+    ViewBag.Title = " Промени постоечка претстава";
+    ViewBag.StageList = new List<string>() { "Мала", "Голема" };
+    var base64 = Convert.ToBase64String(Model.Poster);
+    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+}
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i>@ViewBag.Title</p>
+
+@using (Html.BeginForm("Edit", "TheatrePlays", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-input-section">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(m => m.TheatrePlayId)
+        <div class="form-field">
+            @Html.LabelFor(m => m.Title)
+            @Html.EditorFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Author)
+            @Html.EditorFor(m => m.Author)
+            @Html.ValidationMessageFor(m => m.Author, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Director)
+            @Html.EditorFor(m => m.Director)
+            @Html.ValidationMessageFor(m => m.Director, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Duration)
+            @Html.EditorFor(m => m.Duration, new { @type = "number", step = "10" })
+            @Html.ValidationMessageFor(m => m.Duration, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Cast)
+            @Html.TextAreaFor(m => m.Cast, new
+            {
+                autocomplete = "off",
+                rows = "6",
+                cols = "50",
+                placeholder = "Внесете ги улогите една по една одвоени со запирка (,). Пр.: Игор Џамбазов - Чорбаџи Теодос, Весна Петрушевска Бејби - Кева"
+           })
+            @Html.ValidationMessageFor(m => m.Cast, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { autocomplete = "off", rows = "6", cols = "50" })
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Intermission)
+            @Html.EditorFor(m => m.Intermission)
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Genre)
+            @Html.EditorFor(m => m.Genre)
+            @Html.ValidationMessageFor(m => m.Genre, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Stage)
+            @Html.DropDownListFor(m => m.Stage, new SelectList(ViewBag.StageList), new { id = "dropdown" })
+        </div>
+        <div class="form-field">
+            <label for="poster">
+                Плакат
+                @Html.TextBoxFor(m => m.File, new { @type = "file", data_val = "false" })
+                @Html.ValidationMessageFor(m => m.File, "", new { @class = "validation-message" })
+            </label>
+            <img src="@imgsrc" width="200" class="edit-image"/>
+            @Html.HiddenFor(m => m.Poster)
+        </div>
+    </div>
+    <button type="submit" class="add-submit-btn">Промени</button>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#dropdown').val('@Model.Stage').change();
+            $('input[type="file"]').change(function () {
+                $('.edit-image').css("display", "none");
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

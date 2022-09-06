@@ -1,0 +1,219 @@
+﻿@model IT_Project.ViewModels.EventInfoViewModel
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Претстави:</p>
+<a href="/EventsManager/Plays" class="add-link">Додади изведба <i class="fa fa-plus"></i></a>
+<table>
+    <tr>
+        <th>Претстава</th>
+        <th>Датум и време</th>
+        <th>Цена на билет</th>
+        <th>Продадени/резервирани билети</th>
+        <th></th>
+    </tr>
+    @foreach (var key in Model.Plays.Keys)
+    {
+        int count = Model.Plays[key].Count();
+        var first = Model.Plays[key].First();
+        <tr>
+            <td rowspan="@count" class="table-btns">
+                @key
+                <br />
+                <a href="/TheatrePlays/Edit/@first.TheatrePlayId"><i class="fa fa-pencil"></i></a>
+                <a href="#" data-play-id="@first.TheatrePlayId" class="remove-play"><i class="fa fa-trash"></i></a>
+            </td>
+            <td>@first.DateAndTime</td>
+            <td>@first.Price</td>
+            <td>@first.TicketsGiven</td>
+            <td class="table-btns">
+                <a href="/EventsManager/EditPlayInfo/@first.Id"><i class="fa fa-pencil"></i></a>
+                <a href="#" data-play-id="@first.Id" class="remove-play-info"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        foreach (var info in Model.Plays[key].Skip(1))
+        {
+            <tr>
+                <td>@info.DateAndTime</td>
+                <td>@info.Price</td>
+                <td>@info.TicketsGiven</td>
+                <td class="table-btns">
+                    <a href="/EventsManager/EditPlayInfo/@info.Id"><i class="fa fa-pencil"></i></a>
+                    <a href="#" data-play-id="@info.Id" class="remove-play-info"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Филмови:</p>
+<a href="/EventsManager/Movies" class="add-link">Додади проекција <i class="fa fa-plus"></i></a>
+<table>
+    <tr>
+        <th>Филм</th>
+        <th>Датум и време</th>
+        <th>Цена на билет</th>
+        <th>Продадени/резервирани билети</th>
+        <th></th>
+    </tr>
+    @foreach (var key in Model.Movies.Keys)
+    {
+        int count = Model.Movies[key].Count();
+        var first = Model.Movies[key].First();
+        <tr>
+            <td rowspan="@count" class="table-btns">
+                @key
+                <br />
+                <a href="/Movies/Edit/@first.MovieId"><i class="fa fa-pencil"></i></a>
+                <a href="#" data-movie-id="@first.MovieId" class="remove-movie"><i class="fa fa-trash"></i></a>
+            </td>
+            <td>@first.DateAndTime</td>
+            <td>@first.Price</td>
+            <td>@first.TicketsGiven</td>
+            <td class="table-btns">
+                <a href="/EventsManager/EditMovieInfo/@first.Id"><i class="fa fa-pencil"></i></a>
+                <a href="#" data-movie-id="@first.Id" class="remove-movie-info"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+        foreach (var info in Model.Movies[key].Skip(1))
+        {
+            <tr>
+                <td>@info.DateAndTime</td>
+                <td>@info.Price</td>
+                <td>@info.TicketsGiven</td>
+                <td class="table-btns">
+                    <a href="/EventsManager/EditMovieInfo/@info.Id"><i class="fa fa-pencil"></i></a>
+                    <a href="#" data-movie-id="@info.Id" class="remove-movie-info"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.remove-play-info').on('click', function () {
+            var button = $(this);
+            bootbox.confirm({
+                message: "Дали сте сигурни?",
+                buttons: {
+                    confirm: {
+                        label: 'Да',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Не',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                    $.ajax({
+                        url: "/EventsManager/DeletePlayInfo/" + button.attr("data-play-id"),
+                        method: "GET",
+                        success: function (data) {
+                            window.location.href = "@Url.Action("Index","EventsManager")";
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    }
+                }
+            });
+            });
+
+            $('.remove-movie-info').on('click', function () {
+                        var button = $(this);
+                        bootbox.confirm({
+                            message: "Дали сте сигурни?",
+                            buttons: {
+                                confirm: {
+                                    label: 'Да',
+                                    className: 'btn-success'
+                                },
+                                cancel: {
+                                    label: 'Не',
+                                    className: 'btn-danger'
+                                }
+                            },
+                            callback: function (result) {
+                                if (result) {
+                                $.ajax({
+                                    url: "/EventsManager/DeleteMovieInfo/" + button.attr("data-movie-id"),
+                                    method: "GET",
+                                    success: function (data) {
+                                        window.location.href = "@Url.Action("Index","EventsManager")";
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                                }
+                            }
+                        });
+            });
+
+            $('.remove-play').on('click', function () {
+            var button = $(this);
+            bootbox.confirm({
+                message: "Дали сте сигурни?",
+                buttons: {
+                    confirm: {
+                        label: 'Да',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Не',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                    $.ajax({
+                        url: "/TheatrePlays/Delete/" + button.attr("data-play-id"),
+                        method: "GET",
+                        success: function (data) {
+                            window.location.href = "@Url.Action("Index","EventsManager")";
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    }
+                }
+            });
+            });
+
+            $('.remove-movie').on('click', function () {
+            var button = $(this);
+            bootbox.confirm({
+                message: "Дали сте сигурни?",
+                buttons: {
+                    confirm: {
+                        label: 'Да',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Не',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                    $.ajax({
+                        url: "/Movies/Delete/" + button.attr("data-movie-id"),
+                        method: "GET",
+                        success: function (data) {
+                            window.location.href = "@Url.Action("Index","EventsManager")";
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    }
+                }
+            });
+            });
+        });
+    </script>
+}

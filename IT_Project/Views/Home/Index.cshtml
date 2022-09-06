@@ -1,0 +1,102 @@
+﻿@using IT_Project.Models
+@model IT_Project.ViewModels.HomePageViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="scrolling-wrapper" id="cards-container">
+    @foreach(var e in Model.Events)
+    {
+    <div class="homepage-card">
+        @if (e is TheatrePlay)
+        {
+            var play = (TheatrePlay)e;
+            var base64 = Convert.ToBase64String(play.Poster);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            <a href="/TheatrePlays/Details/@play.TheatrePlayId">
+                <img src="@imgsrc" />
+            </a>
+        }
+        else
+        {
+            var movie = (Movie)e;
+            var base64 = Convert.ToBase64String(movie.Poster);
+            var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            <a href="/Movies/Details/@movie.MovieId">
+                <img src="@imgsrc" />
+            </a>
+        }
+    </div>
+    }
+</div>
+
+@{
+    var base64play = Convert.ToBase64String(Model.NextPlay.Poster);
+    var imgsrcplay = string.Format("data:image/jpg;base64,{0}", base64play);
+    var base64movie = Convert.ToBase64String(Model.NextMovie.Poster);
+    var imgsrcmovie = string.Format("data:image/jpg;base64,{0}", base64movie);
+}
+<div class="up-next">
+    <div>Следна претстава на репертоарот</div>
+    <div class="details-top">
+        <img src="@imgsrcplay" />
+        <div class="details-info">
+            <div><span class="field-name details-title">@Model.NextPlay.Title</span>, <span class="details-genre">@Model.NextPlay.Genre</span></div>
+            <div><span class="field-name">Датум: </span>@Model.NextPlayInfo.DateAndTime.ToString("g")</div>
+            <div><span class="field-name">Цена: </span>@Model.NextPlayInfo.Price</div>
+            <div><span class="field-name">Преостанати места: </span>@(ViewBag.Capacity - Model.NextPlayInfo.TicketsGiven)</div>
+            <div>@Model.NextPlay.Description</div>
+            <div class="details-buttons">
+                <a href="/Tickets/AddTheatrePlayPurchase/@Model.NextPlayInfo.Id" class="tickets-btn">Купи билет</a>
+                <a href="/Tickets/AddTheatrePlayReservation/@Model.NextPlayInfo.Id" class="tickets-btn">Резервирај билет</a>
+                <a href="/TheatrePlays/Details/@Model.NextPlay.TheatrePlayId" class="tickets-btn">Повеќе...</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="up-next">
+    <div>Следен филм на репертоарот</div>
+    <div class="details-top">
+        <img src="@imgsrcmovie" />
+        <div class="details-info">
+            <div><span class="field-name details-title">@Model.NextMovie.Title</span>, <span class="details-genre">@Model.NextPlay.Genre</span></div>
+            <div><span class="field-name">Датум: </span>@Model.NextMovieInfo.DateAndTime.ToString("g")</div>
+            <div><span class="field-name">Цена: </span>@Model.NextMovieInfo.Price</div>
+            <div><span class="field-name">Преостанати места: </span>@(500 - Model.NextMovieInfo.TicketsGiven)</div>
+            <div>@Model.NextMovie.Description</div>
+            <div class="details-buttons">
+                <a href="/Tickets/AddMoviePurchase/@Model.NextMovieInfo.Id" class="tickets-btn">Купи билет</a>
+                <a href="/Tickets/AddMovieReservation/@Model.NextMovieInfo.Id" class="tickets-btn">Резервирај билет</a>
+                <a href="/Movies/Details/@Model.NextMovieInfo.MovieId" class="tickets-btn">Повеќе...</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const cardsContainer = document.getElementById('cards-container');
+        const scrollWidth = cardsContainer.scrollWidth;
+
+
+        window.addEventListener('load', () => {
+            self.setInterval(() => {
+                const first = document.querySelector('#cards-container div');
+
+                if (!isElementInViewport(first)) {
+                    cardsContainer.appendChild(first);
+                    cardsContainer.scrollTo(cardsContainer.scrollLeft - first.offsetWidth, 0);
+                }
+                if (cardsContainer.scrollLeft !== scrollWidth) {
+                    cardsContainer.scrollTo(cardsContainer.scrollLeft + 1, 0);
+                }
+            }, 10);
+        });
+
+        function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return rect.right > 0;
+        }
+    </script>    
+}

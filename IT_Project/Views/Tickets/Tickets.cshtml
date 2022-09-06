@@ -1,0 +1,102 @@
+﻿@model IT_Project.ViewModels.TicketsViewModel
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Билети за претстави:</p>
+@if (Model.Plays.Keys.Count == 0)
+{
+    <p class="none-found">Нема купени билети</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Претстава</th>
+            <th>Датум на купување</th>
+            <th>Број на билети</th>
+            <th>Име и презиме</th>
+            <th>Е-адреса</th>
+        </tr>
+        @foreach (var key in Model.Plays.Keys.OrderBy(k => k.DateAndTime))
+        {
+            int count = Model.Plays[key].Count();
+            var first = Model.Plays[key].First();
+            int sum = first.TicketsCount;
+            <tr>
+                <td rowspan="@(count + 1)">
+                    <div>@key.Title</div>
+                    <div>@key.DateAndTime.ToString("g")</div>
+                    <div>@key.Price денари</div>
+                </td>
+                <td>@first.PurchaseDate</td>
+                <td>@first.TicketsCount</td>
+                <td>@first.CreditCardFullName</td>
+                <td>@first.UserEmail</td>
+            </tr>
+            foreach (var purchase in Model.Plays[key].Skip(1))
+            {
+                sum += purchase.TicketsCount;
+                <tr>
+                    <td>@purchase.PurchaseDate</td>
+                    <td>@purchase.TicketsCount</td>
+                    <td>@purchase.CreditCardFullName</td>
+                    <td>@purchase.UserEmail</td>
+                </tr>
+            }
+            <tr>
+                <td><b>Вкупно билети:</b></td>
+                <td>@sum</td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}
+<p class="body-content-header"><i class="fa fa-angle-right"></i> Билети за филмови:</p>
+@if (Model.Movies.Keys.Count == 0)
+{
+    <p class="none-found">Нема купени билети</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Филм</th>
+            <th>Датум на купување</th>
+            <th>Број на билети</th>
+            <th>Име и презиме</th>
+            <th>Е-адреса</th>
+        </tr>
+        @foreach (var key in Model.Movies.Keys.OrderBy(k => k.DateAndTime))
+        {
+            int count = Model.Movies[key].Count();
+            var first = Model.Movies[key].First();
+            int sum = first.TicketsCount;
+            <tr>
+                <td rowspan="@(count + 1)">
+                    <div>@key.Title</div>
+                    <div>@key.DateAndTime.ToString("g")</div>
+                    <div>@key.Price денари</div>
+                </td>
+                <td>@first.PurchaseDate</td>
+                <td>@first.TicketsCount</td>
+                <td>@first.CreditCardFullName</td>
+                <td>@first.UserEmail</td>
+            </tr>
+            foreach (var purchase in Model.Movies[key].Skip(1))
+            {
+                sum += purchase.TicketsCount;
+                <tr>
+                    <td>@purchase.PurchaseDate</td>
+                    <td>@purchase.TicketsCount</td>
+                    <td>@purchase.CreditCardFullName</td>
+                    <td>@purchase.UserEmail</td>
+                </tr>
+            }
+            <tr>
+                <td><b>Вкупно билети:</b></td>
+                <td>@sum</td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+    </table>
+}

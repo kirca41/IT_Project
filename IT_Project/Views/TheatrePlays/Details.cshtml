@@ -1,0 +1,102 @@
+﻿@model IT_Project.Models.TheatrePlay
+
+@{ 
+    var base64 = Convert.ToBase64String(Model.Poster);
+    var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+}
+
+<div class="details">
+    <div>
+        <div class="details-top">
+            <img src="@imgsrc" />
+            <div class="details-info">
+                <div><span class="field-name details-title">@Model.Title</span>, <span class="details-genre">@Model.Genre</span></div>
+                <div>
+                    <div><span class="field-name">Автор: </span>@Model.Author</div>
+                </div>
+                <div>
+                    <div><span class="field-name">Режисер: </span>@Model.Director</div>
+                </div>
+                <div>
+                    <div>
+                        <span class="field-name">Играат: </span>
+                        <br />
+                        @Model.Cast
+                    </div>
+                </div>
+                <div>
+                    <div><span class="field-name">Времетраење: </span>@Model.Duration минути <span class="field-name">Пауза: </span>@(Model.Intermission ? "Да" : "Не")  <span class="field-name">Сцена: </span>@Model.Stage</div>
+                </div>
+                <div class="details-buttons">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                    {
+                        <a href="/TheatrePlays/Edit/@Model.TheatrePlayId" class="edit-btn">Промени <i class="fa fa-pencil"></i></a>
+                        <a href="#" data-play-id="@Model.TheatrePlayId" class="remove-btn">Избриши <i class="fa fa-trash"></i></a>
+                    }
+                    <a href="javascript:void(0);" onclick="history.go(-1);" class="back-btn">Назад <i class="fa fa-arrow-left"></i></a>
+                </div>
+            </div>
+        </div> 
+        <div class="details-bottom">
+            @Model.Description
+        </div>
+    </div>
+    <button class="tickets-btn" data-play-id="@Model.TheatrePlayId">Прикажи термини</button>
+    <div id="insert-infos">
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.tickets-btn').on('click', function () {
+                var button = $(this);
+                $.ajax({
+                    url: "/TheatrePlays/Infos/",
+                    method: "GET",
+                    data: ({ id: button.attr("data-play-id") }),
+                    success: function (data) {
+                        $('#insert-infos').html(data);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
+            });
+
+            $('.remove-btn').on('click', function () {
+            var button = $(this);
+            bootbox.confirm({
+                message: "Дали сте сигурни?",
+                buttons: {
+                    confirm: {
+                        label: 'Да',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Не',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                    $.ajax({
+                        url: "/TheatrePlays/Delete/" + button.attr("data-play-id"),
+                        method: "GET",
+                        success: function (data) {
+                            window.location.href = "@Url.Action("Index","TheatrePlays")";
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                    }
+                }
+            });
+        });
+        });
+    </script>    
+    
+}
+

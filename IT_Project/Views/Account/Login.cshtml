@@ -1,0 +1,33 @@
+﻿@model IT_Project.Models.LoginViewModel
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i> НАЈАВА</p>
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+{
+<div class="account-form-section">
+    @Html.AntiForgeryToken()
+    <div class="form-field">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { placehodler = "Вашата е-адреса" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-message" })
+    </div>
+    <div class="form-field">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { placehodler = "Внесе лозинка" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-message" })
+    </div>
+    <div>
+        @Html.CheckBoxFor(m => m.RememberMe)
+        @Html.LabelFor(m => m.RememberMe)
+    </div>
+    <button class="register-btn">
+        Најави се
+    </button>
+    <div class="not-registered">
+        <div><em>Не сте регистрирани?</em></div>
+        <a href="/Account/Register/@ViewBag.ReturnUrl"><i class="fa fa-hand-pointer-o fa-rotate-90"></i>Регистрација</a>
+    </div>
+</div>
+}
+
+

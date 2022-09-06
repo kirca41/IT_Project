@@ -1,0 +1,60 @@
+﻿@model IT_Project.Models.MovieReservation
+@{
+    ViewBag.Title = "Резервирај билети";
+}
+
+<p class="body-content-header"><i class="fa fa-angle-right"></i>@ViewBag.Title</p>
+
+@using (Html.BeginForm("AddMovieReservation", "Tickets", FormMethod.Post, new { id = "tickets-form" }))
+{
+    <div class="form-input-section">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-field">
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName)
+            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName)
+            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.Phone)
+            @Html.TextBoxFor(m => m.Phone)
+            @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "validation-message" })
+        </div>
+        <div class="form-field">
+            @Html.LabelFor(m => m.ReservationCount)
+            @Html.TextBoxFor(m => m.ReservationCount, new { @type = "number", step = "1" })
+            @Html.ValidationMessageFor(m => m.ReservationCount, "", new { @class = "validation-message" })
+        </div>
+        @Html.HiddenFor(m => m.MovieInfoId)
+    </div>
+    <button type="submit" class="add-submit-btn">Додади</button>
+    <div class="checkout-totals">
+        <div>@Model.Info.Title</div>
+        <div>@Model.Info.DateAndTime.ToString("g")</div>
+        <div>@Model.Info.Price денари</div>
+        <div>x <span class="checkout-count">@Model.ReservationCount</span></div>
+        <hr />
+        <div><b>Вкупно: </b><span class="checkout-price">@(Model.ReservationCount * Model.Info.Price)</span> денари</div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input[type="number"]').change(function () {
+                var value = $(this).val();
+                total = @Model.Info.Price * value;
+                console.log(value, total);
+                $('.checkout-count').html(value);
+                $('.checkout-price').html(total);
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
